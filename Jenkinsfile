@@ -2,13 +2,14 @@ pipeline {
     agent any 
 
     options {
-        timeout(time: 1, unit: 'HOURS')  // Corrected time value (should be an integer)
-        // retry(3)  // Retry 3 times
+        timeout(time: 1, unit: 'HOURS')  
+        // retry(3)  
         skipDefaultCheckout()  // Skips the default Git checkout
     }
 
     environment {
-       PATH_DIR = "$HOME/.local/bin:$PATH"
+        // Add Poetry's bin directory to the PATH
+        PATH = "$HOME/.local/bin:$PATH"
     }
 
     stages {
@@ -22,7 +23,6 @@ pipeline {
             steps {
                 sh '''
                     curl -sSL https://install.python-poetry.org | python3 -
-                    export ${PATH_DIR}
                     poetry self add poetry-plugin-export
                 '''
             }
@@ -31,7 +31,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    export ${PATH_DIR}
                     poetry install
                     poetry export --without-hashes -f requirements.txt > requirements.txt
                 '''
@@ -43,7 +42,6 @@ pipeline {
                 stage('Lint') {
                     steps {
                         sh '''
-                            export ${PATH_DIR}
                             poetry run flake8 .
                         '''
                     }
@@ -51,7 +49,6 @@ pipeline {
                 stage('Test') {
                     steps {
                         sh '''
-                            export ${PATH_DIR}
                             poetry run pytest tests/
                         '''
                     }
