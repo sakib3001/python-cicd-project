@@ -1,13 +1,13 @@
-pipeline{
+pipeline {
     agent any 
-    environment{
-        HOMEE="Boom"
+    environment {
+        HOMEE = "Boom"
     }
-    satges{
-       stage('Git Checkout'){
-        steps{
-            echo "My 1st Test! ${HOMEE}"
+    stages {  
+        stage('Git Checkout') {
+            steps {
+                echo "My 1st Test! ${HOMEE}"
+            }
         }
-       }
     }
 }
