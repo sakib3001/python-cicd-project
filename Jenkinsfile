@@ -73,9 +73,9 @@ pipeline {
         stage('Image Building') {
             steps {
                 sh '''
-                    docker build -t ${IMAGE_NAME}:${env.GIT_COMMIT} .
+                    docker build -t ${IMAGE_NAME}:${env.BUILD_NUMBER} .
                     docker images
-                    docker tag ${IMAGE_NAME}:${env.GIT_COMMIT} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.GIT_COMMIT}
+                    docker tag ${IMAGE_NAME}:${env.BUILD_NUMBER} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.BUILD_NUMBER}
                 '''
             }
         }
@@ -83,7 +83,7 @@ pipeline {
         stage('Image Scanning: Trivy') {
             steps {
                 sh '''
-                    trivy image --format table -o trivy-image-report.html ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.GIT_COMMIT}
+                    trivy image --format table -o trivy-image-report.html ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.BUILD_NUMBER}
                 '''
             }
         }
@@ -93,7 +93,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', passwordVariable: 'PASS', usernameVariable: 'USR')]) {
                     sh '''
                         docker login -u ${USR} -p ${PASS}
-                        docker push ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.GIT_COMMIT}
+                        docker push ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.BUILD_NUMBER}
                     '''
                 }
             }
