@@ -25,7 +25,7 @@ def test_homepage(client):
     assert response.status_code == 200  # Check if the response is successful
     assert b"Inspirational Quotes" in response.data  # Check if the title is present
     assert b"Get a Quote" in response.data  # Check if the button text is present
-    assert b"Made for Testing CI/CD" in response.data  # Check if the footer is present
+    assert b"Made for Testing CI/CD v2" in response.data  # Check if the footer is present
 
 
 def test_get_quote(client):
