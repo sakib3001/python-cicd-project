@@ -17,9 +17,18 @@ pipeline {
                 git(url: 'https://github.com/sakib3001/python-cicd-project.git', branch: 'main')
             }
         }
+        stage('Install Poetry') {
+            steps {
+                sh '''
+                    curl -sSL https://install.python-poetry.org | python3 -
+                    export PATH="$HOME/.local/bin:$PATH"
+                '''
+            }
+        }
         stage('Build') {
             steps {
                 sh '''
+                export PATH="$HOME/.local/bin:$PATH"
                 poetry install
                 poetry export --without-hashes -f requirements.txt > requirements.txt
                 '''
@@ -27,7 +36,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'pytest tests/'  
+                sh 'poetry run pytest tests/'  
             }
         }
     }
