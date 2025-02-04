@@ -14,6 +14,13 @@ ENV/
 # Poetry lock file (if you want to ignore it, remove the '#' in the line below)
 # poetry.lock
 
+# Package manager files
+pip-wheel-metadata/
+requirements.txt.lock
+
+# Type hint cache (if using MyPy)
+.mypy_cache/
+
 # IDE-specific files
 .idea/
 .vscode/
@@ -53,3 +60,15 @@ dist/
 
 # MacOS-specific files
 *.DS_Store
+
+# Terraform files (since you are working with Terraform)
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+*.tfvars.json
+crash.log
+
+# Kubernetes and Helm (optional, if using Kubernetes)
+.kube/
+helm-release.yaml
