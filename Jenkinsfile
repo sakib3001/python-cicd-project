@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-       PATH = "$HOME/.local/bin:$PATH"
+       PATH_DIR = "$HOME/.local/bin:$PATH"
     }
 
     stages {
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh '''
                     curl -sSL https://install.python-poetry.org | python3 -
-                    export ${PATH}
+                    export ${PATH_DIR}
                     poetry self add poetry-plugin-export
                 '''
             }
@@ -31,7 +31,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    export ${PATH}
+                    export ${PATH_DIR}
                     poetry install
                     poetry export --without-hashes -f requirements.txt > requirements.txt
                 '''
@@ -43,7 +43,7 @@ pipeline {
                 stage('Lint') {
                     steps {
                         sh '''
-                            export ${PATH}
+                            export ${PATH_DIR}
                             poetry run flake8 .
                         '''
                     }
@@ -51,7 +51,7 @@ pipeline {
                 stage('Test') {
                     steps {
                         sh '''
-                            export ${PATH}
+                            export ${PATH_DIR}
                             poetry run pytest tests/
                         '''
                     }
