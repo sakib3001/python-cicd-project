@@ -8,7 +8,7 @@ pipeline {
     }
 
     tools {
-        docker // Ensure Docker is installed and available
+        docker "docker"
     }
 
     environment {
