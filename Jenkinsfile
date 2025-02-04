@@ -28,7 +28,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                export PATH="$HOME/.local/bin:$PATH"
                 poetry install
                 poetry export --without-hashes -f requirements.txt > requirements.txt
                 '''
