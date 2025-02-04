@@ -1,0 +1,55 @@
+# Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment directories
+.venv/
+venv/
+env/
+ENV/
+.venv*
+
+# Poetry lock file (if you want to ignore it, remove the '#' in the line below)
+# poetry.lock
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Docker related files
+docker-compose.override.yml
+Dockerfile.*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Flask-specific settings
+instance/
+*.db
+*.sqlite3
+
+# Test and coverage reports
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.hypothesis/
+.cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Build directories
+build/
+dist/
+
+# Logs and runtime files
+*.log
+*.pid
+
+# MacOS-specific files
+*.DS_Store

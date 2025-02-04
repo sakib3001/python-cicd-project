@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeBee App</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-gray-900 text-white flex flex-col justify-center items-center min-h-screen">
+
+    <div class="flex flex-col justify-center items-center text-center">
+        <h1 class="text-4xl font-bold animate__animated animate__fadeInDown">🚀 Inspirational Quotes</h1>
+        <p class="text-lg mt-3 text-gray-400">Click the button below to get a new quote</p>
+
+        <div class="mt-6 p-6 bg-gray-800 rounded-lg shadow-lg w-full max-w-lg flex justify-center items-center">
+            <p id="quote" class="text-2xl text-blue-300 font-semibold animate__animated animate__fadeIn text-center"></p>
+        </div>
+
+        <button onclick="fetchQuote()" 
+            class="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 transition-all rounded-full text-lg font-semibold shadow-lg animate__animated animate__pulse animate__infinite">
+            🔄 Get a Quote
+        </button>
+    </div>
+
+    <footer class="mt-10 text-gray-500 text-sm text-center">
+        Made for Testing CI/CD
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

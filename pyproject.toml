@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "webee"
+version = "0.1.0"
+description = ""
+authors = ["sakib3001 <ikasakib1@gmail.com>"]
+readme = "README.md"
+
+# Update the packages field to properly reference the webee directory inside src
+packages = [{include = "webee", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+flask-testing = "^0.8.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
