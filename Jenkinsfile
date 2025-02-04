@@ -6,7 +6,7 @@ pipeline{
     satges{
        stage('Git Checkout'){
         steps{
-            echo "My 1st pipeline! ${HOMEE}"
+            echo "My 1st Test! ${HOMEE}"
         }
        }
     }
