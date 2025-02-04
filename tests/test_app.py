@@ -1,12 +1,13 @@
-import pytest
-import sys
 import os
+import sys
+import pytest
+from webee.app import app
 
 # Add the src directory to the sys.path explicitly
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
+)
 
-# Now try importing the app
-from webee.app import app
 
 @pytest.fixture
 def client():
@@ -14,6 +15,7 @@ def client():
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
+
 
 def test_homepage(client):
     """
@@ -24,6 +26,7 @@ def test_homepage(client):
     assert b"Inspirational Quotes" in response.data  # Check if the title is present
     assert b"Get a Quote" in response.data  # Check if the button text is present
     assert b"Made for Testing CI/CD" in response.data  # Check if the footer is present
+
 
 def test_get_quote(client):
     """
@@ -38,6 +41,7 @@ def test_get_quote(client):
     assert isinstance(json_data["quote"], str)  # Check if the quote is a string
     assert len(json_data["quote"]) > 0  # Check if the quote is not empty
 
+
 def test_get_quote_randomness(client):
     """
     Test if the /get-quote endpoint returns different quotes on multiple requests.
@@ -51,3 +55,5 @@ def test_get_quote_randomness(client):
 
     # Check if at least two different quotes were returned
     assert len(quotes) > 1, "Quotes are not random enough"
+
+# Add a newline at the end of the file

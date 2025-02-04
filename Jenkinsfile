@@ -1,14 +1,14 @@
 pipeline {
     agent any 
-    
+
     options {
         timeout(time: 1, unit: 'HOURS')  // Corrected time value (should be an integer)
-        retry(3)  // Retry 3 times
+        // retry(3)  // Retry 3 times
         skipDefaultCheckout()  // Skips the default Git checkout
     }
 
     environment {
-        HOMEE = "Boom"
+       PATH = "$HOME/.local/bin:$PATH"
     }
 
     stages {
@@ -17,30 +17,45 @@ pipeline {
                 git(url: 'https://github.com/sakib3001/python-cicd-project.git', branch: 'main')
             }
         }
+
         stage('Install Poetry') {
             steps {
                 sh '''
                     curl -sSL https://install.python-poetry.org | python3 -
-                    export PATH="$HOME/.local/bin:$PATH"
+                    export ${PATH}
                     poetry self add poetry-plugin-export
                 '''
             }
         }
+
         stage('Build') {
             steps {
                 sh '''
-                export PATH="$HOME/.local/bin:$PATH"
-                poetry install
-                poetry export --without-hashes -f requirements.txt > requirements.txt
+                    export ${PATH}
+                    poetry install
+                    poetry export --without-hashes -f requirements.txt > requirements.txt
                 '''
             }
         }
-        stage('Test') {
-            steps {
-                sh '''
-                export PATH="$HOME/.local/bin:$PATH"
-                poetry run pytest tests/
-                '''  
+
+        stage('Test and Lint') {
+            parallel {
+                stage('Lint') {
+                    steps {
+                        sh '''
+                            export ${PATH}
+                            poetry run flake8 .
+                        '''
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        sh '''
+                            export ${PATH}
+                            poetry run pytest tests/
+                        '''
+                    }
+                }
             }
         }
     }
