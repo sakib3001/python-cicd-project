@@ -73,7 +73,6 @@ pipeline {
         stage('Image Building') {
             steps {
                 sh '''
-                    docker -v
                     docker build -t ${IMAGE_NAME}:${env.GIT_COMMIT} .
                     docker images
                     docker tag ${IMAGE_NAME}:${env.GIT_COMMIT} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${env.GIT_COMMIT}
