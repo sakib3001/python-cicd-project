@@ -4,7 +4,7 @@ pipeline {
         HOMEE = "Boom"
     }
     stages {  
-        stage('Git Checkout') {
+        stage('Test') {
             steps {
                 echo "My 1st Test! ${HOMEE}"
             }
